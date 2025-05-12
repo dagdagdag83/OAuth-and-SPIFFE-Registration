@@ -1,6 +1,5 @@
 ---
-title: "TODO - Your title"
-abbrev: "TODO - Abbreviation"
+title: "OAuth and SPIFFE"
 category: info
 
 docname: draft-kasselman-oauth_spiffe-latest
@@ -9,8 +8,8 @@ number:
 date:
 consensus: true
 v: 3
-# area: AREA
-# workgroup: WG Working Group
+# area: Sec
+# workgroup: OAuth
 keyword:
  - next generation
  - unicorn
@@ -26,8 +25,8 @@ venue:
 author:
  -
     fullname: "PieterKas"
-    organization: Your Organization Here
-    email: "90690777+PieterKas@users.noreply.github.com"
+    organization: SPIRL
+    email: "pieter@spirl.com"
 
 normative:
 
