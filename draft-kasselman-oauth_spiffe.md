@@ -35,7 +35,6 @@ normative:
   RFC7517: JSON Web Keys
   RFC7521:
   RFC7523:
-  RFC7591:
   RFC8705:
   SPIFFE:
     title: SPIFFE
