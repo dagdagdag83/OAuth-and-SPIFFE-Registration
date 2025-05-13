@@ -90,7 +90,7 @@ The OAuth authorization server avoids operational overheads of registering clien
 TODO insert picture.
 
 ## SPIFFE and OAuth Trust Relationship
-SPIFFE makes provision for multiple Trust Domains, which are represented in the workload identifier. Trust Domains offers additional segmentation withing a SPIFFE deployment and each Trust Domain has its own keys for signing credentials. 
+SPIFFE makes provision for multiple Trust Domains, which are represented in the workload identifier. Trust Domains offers additional segmentation withing a SPIFFE deployment and each Trust Domain has its own keys for signing credentials.
 
 ## Client Authentication
 Use any protocol compatible with the SPIFFE Credentials
