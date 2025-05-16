@@ -110,7 +110,7 @@ The diagram below shows the process for client registration on first use in the 
        V                                       V
 +-------------+                          +-------------+
 |  Workload   |------------------------->|             |
-|   acting    | (C) Authorization Request|Authorization|    
+|   acting    | (C) Authorization Request|Authorization|
 |     as      |                          |   Server    |
 |OAuth Client |<-------------------------|             |
 +-------------+ (D) Authorization        +-------------+
