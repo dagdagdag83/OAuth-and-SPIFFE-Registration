@@ -166,7 +166,7 @@ In OAuth flows that rely on redirection, the initial interaction with the author
    +-------------+ (A) Authorization Server Establish         |
    |   SPIFFE    |     Trust with SPIFFE Issuer               |
    |   Issuer    |<-------------------------------------------'
-   +-------------+                                
+   +-------------+
 ~~~~
 {: title='Client Registration on First Use: Authorization Code Grant'}
 
