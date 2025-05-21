@@ -1,5 +1,5 @@
 ---
-title: "OAuth and SPIFFE"
+title: "OAuth Client Registration on First Use with SPIFFE"
 category: info
 
 docname: draft-kasselman-oauth_spiffe-latest
@@ -8,17 +8,19 @@ number:
 date:
 consensus: true
 v: 3
-# area: Sec
-# workgroup: OAuth
+area: AREA
+workgroup: "Web Authorization Protocol"
 keyword:
- - next generation
- - unicorn
- - sparkling distributed ledger
+ - workload
+ - identity
+ - credential
+ - client
+ - registration
 venue:
-#  group: OAuth
-#  type: Working Group
-#  mail: WG@example.com
-#  arch: https://example.com/WG
+  group: "Web Authorization Protocol"
+  type: "Working Group"
+  mail: "oauth@ietf.org"
+  arch: "https://mailarchive.ietf.org/arch/browse/oauth/"
   github: "PieterKas/OAuth-and-SPIFFE"
   latest: "https://PieterKas.github.io/OAuth-and-SPIFFE/draft-kasselman-oauth_spiffe.html"
 
@@ -32,10 +34,13 @@ normative:
 
   RFC6749:
   RFC6755:
+  RFC6819:
   RFC7517: JSON Web Keys
   RFC7521:
   RFC7523:
+  RFC7591
   RFC8705:
+  RFC9700:
   SPIFFE:
     title: SPIFFE
     target: https://github.com/spiffe/spiffe/blob/main/standards/SPIFFE.md
@@ -197,16 +202,19 @@ In these flows, another component such as the user agent interacts with the auth
 Following the redirect back to the client, the client must authenticate to the authorization server as described in JWT-SVID or X.509-SVID as defined in {{SPIFFE-OAUTH-CLIENT-AUTH}}. If the authentication fails, or the SPIFFE ID in the JWT-SVID or X.509-SVID does not match the client identifier, the request should be denied and the authorization server MAY de-register the client identifier used. If the authentication succeeds, it confirms that the client was issued a credential by a trusted SPIFFE issuer and the authorization server issues the requested tokens.
 
 # Additional metadata
+Additional metadata may be required when a client identifier (client_id) is first registered. The OAuth 2.0 Dynamic Client Registration Protocol {{RFC7591}} defines client metadata that may be used. If required, client metadata SHOULD be added at the time of registration. The exact mechanims through which this additional metadata is retrieved is out of scope of this document. Metadata may dynamically generated or derived at the time of registration, or it may be retrieved from a system of record, such as a configuration management system in an enterprise. The SPIFFE ID presented as the client identitifier (client_id) may be presented to a system of record to retrieve additional metadata.
 
 ## The redirect URI
-TODO - all the ways addditional metadata may be obtained - including addding it as a request parameter perhaps? PAR allows for this.
+Flows that depend on redirection requires that a redirect URI is registered along with every client identifier. Another component, like a User Agent, may contact the authorization server, before being redirected to the client. In order to avoid attacks such as cross-site request forgery, open redirecotr attacks and similar attacck described in OAuth 2.0 Threat Model and Security Considerations {{RFC6819}} and OAuth 2.0 Security Best Current Practice {{RFC9700}}, the redirect_uri MUST be provisioned from a trustworthy source if it is required.
 
 ## Scopes
+An authorization server MAY register a client with a default set of scopes or retrieve client sspecific scopes from a system of record, such as a configuration management system. Details of how to retrieve additional scope data is out of scope for this document.
+
+## Grant Types
+Authorization servers MAY choose to limit the grant types for which the "register on first use" pattern is supported. This may be recorded as the "grant_type" metadata field.
 
 # Client ID Lifecycle Management
-delete client IDs every so often.
-
-Velocity controls
+The numberof client ids registered with an authorization server may grow significantly over time. An authorization MAY unregistered a client id if it has not been used for a an extended period of time to reduce the size of the client registration database.
 
 # Security Considerations
 
