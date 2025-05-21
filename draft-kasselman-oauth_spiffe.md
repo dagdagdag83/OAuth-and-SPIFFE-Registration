@@ -70,7 +70,7 @@ informative:
 
 --- abstract
 
-The OAuth framework is a widely deployed authorization protocol standard that enables applications to obtain limited access to user resources. OAuth clients are applications that request access to protected resources on behalf of a user by obtaining authorization from an OAuth authorization server. OAuth clients must be registered with the OAuth authorization server. Registering and managing OAuth client IDs and client secrets poses significant operational challenges in dynamically scaling environments. The Secure Production Identity Framework For Everyone ({{SPIFFE}}) is a graduated Cloud Native Compute Foundation project that is designed to dynamically attest and verify workload identity, assign identifiers, and issue credentials to workloads. This draft describes how workloads with SPIFFE credentials can be used with OAuth to lessen the operational burden of client registration and remove the need for additional client secrets by adopting a "register on first use" principle.
+The OAuth framework is a widely deployed authorization protocol standard that enables applications to obtain limited access to user resources. OAuth clients must be registered with the OAuth authorization server, which poses significant operational challenges in dynamically scaling environments. The Secure Production Identity Framework For Everyone (SPIFFE) is a graduated Cloud Native Compute Foundation project designed to dynamically attest and verify workload identity. This draft describes how workloads with SPIFFE credentials can be used with OAuth to lessen the operational burden of client registration through a "register on first use" principle.
 
 --- middle
 
@@ -135,7 +135,7 @@ The diagram below shows the process for client registration on first use in the 
 * (E) The Oauth client use the access token it retrieved in the previous step and use it to acccess the resource server.
 
 ## Client Registration On First Use for Redirecting OAuth Flows
-In OAuth flows that rely on redirection, the initial interaction with the authorization server is not performed by the client, but is instead performed by another component, such as the user agent, after which the flow is redirected to the client. The client then interacts with the authorization server token endpoint to complete the flow and obtain tokens. Examples include the Authorization Grant Flow (see Section 4.1 of {{RFC6749}}).
+In OAuth flows that rely on redirection, the initial interaction with the authorization server is not performed by the client, but is instead performed by another component, such as the user agent. These flows typically include interaction with the Resource Owner in order to perform user authentication and grant authorization. Once the Resource Owner authenticated and granted authorization, the flow is redirected back to the client. The client then interacts with the authorization server token endpoint to complete the flow and obtain tokens. Examples include the Authorization Grant Flow (see Section 4.1 of {{RFC6749}}).
 
 ~~~~
 
@@ -193,10 +193,10 @@ The client SHOULD authenticate itself using either a JWT-SVID or X.509-SVID as d
 When presented with a SPIFFE ID that is used as a client identifier, the authorization server SHOULD register it as a valid client identifier. There are two cases:
 
 ### Non-redirect flows
-In these flows, the client is intereacting directly with the token endpoint. The authorization server MUST authenticate the client as described in JWT-SVID or X.509-SVID as defined in {{SPIFFE-OAUTH-CLIENT-AUTH}}. If the JWT-SVID or X.509-SVID used to authenticate the client was issued by a trusted SPIFFE issuer, and the authentication succeeds, the SPIFFE ID SHOULD be registered as the client identifier (client_id).
+In non-redirect flows, the client is intereacting directly with the token endpoint. The authorization server MUST authenticate the client as described in JWT-SVID or X.509-SVID as defined in {{SPIFFE-OAUTH-CLIENT-AUTH}}. If the JWT-SVID or X.509-SVID used to authenticate the client was issued by a trusted SPIFFE issuer, and the authentication succeeds, the SPIFFE ID SHOULD be registered as the client identifier (client_id).
 
 ### Redirect flows
-In redirect flows, another component such as the user agent, interacts with the authorization server and relies on a redirection back to the client. Since the client does not interact directly with the authorization server in this initial interaction, it is not in a position to authenticate itself using a JWT-SVID or X.509-SVID. The user agent includes a client identifier (the SPIFFE ID) which the authorization server registers as a valid client identifier (client_id) after obtaining additional metadata. The metadata may be derived from the SPIFFE ID, or it may be retrieved from a configuration server. Details of obtaining the additional metaddata is implementation specific and beyond the scope of this document. If ne or more redirection URIs are obtained from another source, it MUST be the same as that presented by the user agent.
+Redirect flows typically require interaction with the Resource Owner to perform user authentication. In redirect flows, another component such as the user agent, interacts with the authorization server and relies on a redirection back to the client. Since the client does not interact directly with the authorization server in this initial interaction, it is not in a position to authenticate itself using a JWT-SVID or X.509-SVID. The user agent includes a client identifier (the SPIFFE ID) which the authorization server registers as a valid client identifier (client_id) after obtaining additional metadata. The metadata may be derived from the SPIFFE ID, or it may be retrieved from a configuration server. Details of obtaining the additional metaddata is implementation specific and beyond the scope of this document. If ne or more redirection URIs are obtained from another source, it MUST be the same as that presented by the user agent.
 
 Following the redirect back to the client, the client must authenticate to the authorization server as described in JWT-SVID or X.509-SVID as defined in {{SPIFFE-OAUTH-CLIENT-AUTH}}. If the authentication fails, or the SPIFFE ID in the JWT-SVID or X.509-SVID does not match the client identifier, the request should be denied and the authorization server MAY de-register the client identifier used. If the authentication succeeds, it confirms that the client was issued a credential by a trusted SPIFFE issuer and the authorization server issues the requested tokens.
 
@@ -213,7 +213,7 @@ An authorization server MAY register a client with a default set of scopes or re
 Authorization servers MAY choose to limit the grant types for which the "register on first use" pattern is supported. This may be recorded as the "grant_type" metadata field.
 
 # Client ID Lifecycle Management
-The numberof client ids registered with an authorization server may grow significantly over time. An authorization MAY unregistered a client id if it has not been used for a an extended period of time to reduce the size of the client registration database.
+The numberof client ids registered with an authorization server may grow significantly over time. An authorization MAY unregistered a client id if it has not been used for an extended period of time to reduce the size of the client registration database.
 
 # Security Considerations
 
