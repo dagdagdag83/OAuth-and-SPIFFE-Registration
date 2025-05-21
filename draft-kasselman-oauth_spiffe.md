@@ -147,7 +147,7 @@ In OAuth flows that rely on redirection, the initial interaction with the author
  |                                                        |
 (B) SPIFFE Issuer Attest Workload                         |
  |   and Provisions Credentials                           |
- |                                                        |                                                
+ |                                                        |
  |   +----------+                                         |
  |   | Resource |                                         |
  |   |   Owner  |                                         |
@@ -179,7 +179,7 @@ In OAuth flows that rely on redirection, the initial interaction with the author
 * (A) The OAuth authorization server establish a trust relationship with the SPIFFE Issuer. Once trust is established, the OAuth authorization server accepts credentials issued by the SPIFFE Issuer.
 * (B) The workload is attested and credentialed by the SPIFFE Issuer {{SPIFFE}}. The SPIFFE Issuer assigns a SPIFFE ID {{SPIFFE_ID}} as an identifier for the workload, along with SPIFFE credentials (e.g. JWT-SVID {{SPIFFE_JWT}} and X.509-SVID {{SPIFFE_X509}}).
 * (C) The client initiates the flow by directing the resource owner's user-agent to the authorization endpoint. The client includes its client identifier, requested scope, local state, and a redirection URI to which the authorization server will send the user-agent back once access is granted (or denied).
-* (D) The authorization server authenticates the resource owner (via the user-agent) and establishes whether the resource owner grants or denies the client's access request. If the client identifier (client_id) is a SPIFFE ID, it registers the SPIFFE ID as the client identifier and register additional metadata, including a redirection URI (redirect_uri). The additional metadata may be obtained from configuration servers or other out-of-band mechanisms that is trusted by the authorization server. 
+* (D) The authorization server authenticates the resource owner (via the user-agent) and establishes whether the resource owner grants or denies the client's access request. If the client identifier (client_id) is a SPIFFE ID, it registers the SPIFFE ID as the client identifier and register additional metadata, including a redirection URI (redirect_uri). The additional metadata may be obtained from configuration servers or other out-of-band mechanisms that is trusted by the authorization server.
 * (E)  Assuming the resource owner grants access, the authorization server redirects the user-agent back to the client using the redirection URI provided earlier (in the request or during client registration).  The redirection URI includes an authorization code and any local state provided by the client earlier.
 * (F)  The client requests an access token from the authorization server's token endpoint by including the authorization code received in the previous step.  When making the request, the client authenticates with the authorization server. It authenticates itself using either a JWT-SVID or X.509-SVID as defined in {{SPIFFE-OAUTH-CLIENT-AUTH}}. The client includes the redirection URI used to obtain the authorization code for verification.
 * (G)  The authorization server authenticates the client, validates the authorization code, and ensures that the redirection URI received matches the URI used to redirect the client in step (E). If valid, the authorization server responds back with an access token and, optionally, a refresh token.
