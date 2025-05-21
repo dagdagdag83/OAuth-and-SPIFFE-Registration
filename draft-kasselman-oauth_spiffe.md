@@ -34,13 +34,10 @@ normative:
 
   RFC6749:
   RFC6755:
-  RFC6819:
   RFC7517: JSON Web Keys
   RFC7521:
   RFC7523:
-  RFC7591:
   RFC8705:
-  RFC9700:
   SPIFFE:
     title: SPIFFE
     target: https://github.com/spiffe/spiffe/blob/main/standards/SPIFFE.md
@@ -68,6 +65,8 @@ normative:
 
 informative:
 
+  RFC9700:
+  RFC6819:
 
 --- abstract
 
