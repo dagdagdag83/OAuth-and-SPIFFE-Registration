@@ -163,15 +163,15 @@ In OAuth flows that rely on redirection, the initial interaction with the author
  |   |          |                                 |               |
  |   |          |<----(E)-- Authorization Code ---+               |
  |   +------+---+                                 +---+-----------+
- |     ^    |                                         |   ^
+ |     ^    |                                         ^   |
  |     |   (D)                                        |   |
  |    (C)   |                                         |   |
  |     |    v                                         |   |
  |   +---------+                                      |   |
- |   |         |<---(E)-- Authorization Code ---------'   |
+ |   |         |----(F)-- Authorization Code ---------'   |
  |   |  Client |          & Redirection URI               |
  +-->|         |                                          |
-     |         |<---(F)----- Access Token ----------------'
+     |         |<---(G)----- Access Token ----------------'
      +---------+       (w/ Optional Refresh Token)
 
 ~~~
