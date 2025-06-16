@@ -188,6 +188,26 @@ In OAuth flows that rely on redirection, the initial interaction with the author
 * (F)  The client requests an access token from the authorization server's token endpoint by including the authorization code received in the previous step.  When making the request, the client authenticates with the authorization server. It authenticates itself using either a JWT-SVID or X.509-SVID as defined in {{SPIFFE-OAUTH-CLIENT-AUTH}}. The client includes the redirection URI used to obtain the authorization code for verification.
 * (G)  The authorization server authenticates the client, validates the authorization code, and ensures that the redirection URI received matches the URI used to redirect the client in step (E). If valid, the authorization server responds back with an access token and, optionally, a refresh token.
 
+# Phased Client Onboarding
+bla bla bla, onboard is many discrete steps. Init, config, entitle. bla bla bla bla, it's entirely possible that a client can be fully registered on first use, which is what the previous section covers, but in many enterprise environments this will not be feasible. The distinct phases of client onboarding can be partially or fully automated but not on first use. Parts of the phases can be done out of band before or after the attempted first use.
+
+## Client Initialization
+On client initialization, the SPIFFE client record will be created but the client is not fully ready to be used yet. The client initialization can be done out of band, for instance when the SPIFFE system itself onboards the workload, or first time the service mesh detects the workload. Or as in the "register on first use" pattern when the AS is first introduced to the workload, using the SPIFFE credentials to create the client identifier dynamically. Regardless the end result is that there will be an initial client record with a direct link between the SPIFFE identifier in the SPIFFE credentials and the OAuth client identifier.
+
+## Client Configuration
+Once initialized, a client must be configured with the necessary operational metadata to function correctly and securely. This can be a statically defined metadata in a central configuration system, it can be dynamically generated on the fly, manually created out of band, or the workload can specify it using mechanism such as !! LINK TO MECHANISMS LIKE PROTECTED RESOURCES METADATA ETC !!.
+
+## Client Entitlement
+This phase defines the specific permissions and/or access rights granted to the client. This is a critical phase that determines what the configured client is permitted to do and request. Entitlements can include;
+
+* Grant Types: The OAuth grant types the client is permitted to use (e.g., client_credentials, authorization_code).
+* Scopes: A default set of allowed scopes, or some configuration of dynamic scopes the client can request.
+* Response Types: The response types the client is permitted to request.
+* Audience Restrictions: The resource servers the client is allowed to request tokens for.
+* Fine-Grained Permissions: Other specific, detailed access rights that are evaluated by the Authorization Server, the target Resource Server or any other PEP/PIP as part of broader access control policies.
+
+In enterprise environments the permissions and access rights granted to a client can be highly dynamic and complex. As such there might be several out of band operations to determine this for a given client. This could be assigning permissions and roles to the client in a PRP system, or assigning attributes to the workload, or any other policy mechanism which can be evaluated later.
+
 # SPIFFE and OAuth Trust Relationship
 SPIFFE makes provision for multiple Trust Domains, which are represented in the workload identifier. Trust Domains offers additional segmentation withing a SPIFFE deployment and each Trust Domain has its own keys for signing credentials. The OAuth authorization server may choose to trust one or more trust domains as defined in {{SPIFFE-OAUTH-CLIENT-AUTH}}.
 
