@@ -87,7 +87,7 @@ OAuth deployments in which SPIFFE is already deployed can leverage the SPIFFE id
 
 The simplest and most complete version of this automated client onboarding is termed "register on first use" pattern, which removes the need for manual pre-registration or additional roundtrips and credential registration. It leverages existing credentials that were issued dynamically and reduces the dependence on static secrets which are at higher risk of compromise than ephemeral dynamic credentials.
 
-In many enterprise environments a complete "register on first use" pattern might not be feasible, so we also break down the process into a phased client onboarding detailed in this document. This onboarding exist of client initialization, configuration and entitlement. 
+In many enterprise environments a complete "register on first use" pattern might not be feasible, so we also break down the process into a phased client onboarding detailed in this document. This onboarding exist of client initialization, configuration and entitlement.
 
 # Conventions and Definitions
 
