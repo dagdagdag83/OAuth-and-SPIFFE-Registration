@@ -1,8 +1,8 @@
 <!-- regenerate: on (set to off if you edit this file) -->
 
-# TODO - Your title
+# OAuth Client Registration on First Use with SPIFFE
 
-This is the working area for the individual Internet-Draft, "TODO - Your title".
+This is the working area for the individual Internet-Draft, "OAuth Client Registration on First Use with SPIFFE".
 
 * [Editor's Copy](https://PieterKas.github.io/OAuth-and-SPIFFE/#go.draft-kasselman-oauth_spiffe.html)
 * [Datatracker Page](https://datatracker.ietf.org/doc/draft-kasselman-oauth_spiffe)
