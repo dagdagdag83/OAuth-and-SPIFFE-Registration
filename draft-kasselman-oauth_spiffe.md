@@ -189,7 +189,7 @@ In OAuth flows that rely on redirection, the initial interaction with the author
 SPIFFE makes provision for multiple Trust Domains, which are represented in the workload identifier. Trust Domains offers additional segmentation withing a SPIFFE deployment and each Trust Domain has its own keys for signing credentials. The OAuth authorization server may choose to trust one or more trust domains as defined in {{SPIFFE-OAUTH-CLIENT-AUTH}}.
 
 ## Client Authentication
-The client SHOULD authenticate itself using either a JWT-SVID or X.509-SVID as defined in {{SPIFFE-OAUTH-CLIENT-AUTH}}.
+The client MUST authenticate itself using either a JWT-SVID or X.509-SVID as defined in {{SPIFFE-OAUTH-CLIENT-AUTH}}.
 
 ## Authorization Server Processing
 When presented with a SPIFFE ID that is used as a client identifier, the authorization server SHOULD register it as a valid client identifier. There are two cases:
