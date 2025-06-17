@@ -235,10 +235,13 @@ TODO Security
 
 This document has no IANA actions.
 
-
 --- back
 
 # Acknowledgments
-{:numbered="false"}
+The author would like to thank Dmitry Telegin (Backbase), Dan Sneeggen (Signicat) and Dean Saxe (Beyond Identity), Arndt Schwenkschuster (SPIRL) and Marcel Levy (SPIRL) and others (please let us know, if you've been mistakenly omitted) for their valuable input, feedback and general support of this work.
 
-TODO acknowledge.
+# Document History
+
+\[\[ To be removed from the final specification ]]
+-latest
+* Initial draft submitted to Datatracker
