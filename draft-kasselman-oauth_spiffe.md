@@ -30,6 +30,12 @@ author:
     organization: SPIRL
     email: "pieter@spirl.com"
 
+contributor:
+- ins: D. Sneeggen
+  name: Dag Sneeggen
+  org: Signicat
+  email: dagsne@signicat.com
+
 normative:
 
   RFC6749:
