@@ -194,13 +194,13 @@ In OAuth flows that rely on redirection, the initial interaction with the author
 ## Client Registration Error Response
 When the registration attempt has failed or been rejected, the authorization server MUST return an error response that conforms to the expected error response for the given OAuth 2.0 endpoint. Additional error information may or may not be included in the error response.
 
-## Authentication Failed
+### Authentication Failed
 When a SPIFFE credential is missing, invalid, or for any reason not valid, the authorization server returns an error response with an HTTP 401 status code. Care must be taken to return enough useful information, but not so much as to potentially aid malicious actors.
 
-## Failed Registration
+### Failed Registration
 When a request to register a client fails due to disallowed metadata (e.g., http redirect URIs if only https is allowed, or an access token lifetime exceeding maximum allowed) or invalid metadata, the authorization server returns an error response with an HTTP 400 status code. The error response should indicate what was invalid or disallowed, and ideally how it can be resolved.
 
-## Incomplete Registration
+### Incomplete Registration
 When additional post-registration setup is required, there can be cases where the client cannot be used. In such scenarios, the authorization server returns an error response with an HTTP 403 status code. This error could also be returned in cases where there is an asynchronous event or manual operation that is not yet completed. The response may also include information about what is missing and potentially how the workload, or workload owners, can complete the registration.
 
 # SPIFFE and OAuth Trust Relationship
