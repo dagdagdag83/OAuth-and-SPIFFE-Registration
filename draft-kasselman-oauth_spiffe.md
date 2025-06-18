@@ -238,7 +238,7 @@ This document has no IANA actions.
 --- back
 
 # Acknowledgments
-The author would like to thank Dmitry Telegin (Backbase), Dan Sneeggen (Signicat) and Dean Saxe (Beyond Identity), Arndt Schwenkschuster (SPIRL) and Marcel Levy (SPIRL) and others (please let us know, if you've been mistakenly omitted) for their valuable input, feedback and general support of this work.
+The author would like to thank Dmitry Telegin (Backbase), Dag Sneeggen (Signicat) and Dean Saxe (Beyond Identity), Arndt Schwenkschuster (SPIRL) and Marcel Levy (SPIRL) and others (please let us know, if you've been mistakenly omitted) for their valuable input, feedback and general support of this work.
 
 # Document History
 
