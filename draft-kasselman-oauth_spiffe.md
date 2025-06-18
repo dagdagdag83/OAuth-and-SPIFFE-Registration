@@ -223,8 +223,22 @@ An authorization server MAY register a client with a default set of scopes or re
 ## Grant Types
 Authorization servers MAY choose to limit the grant types for which the "register on first use" pattern is supported. This may be recorded as the "grant_type" metadata field.
 
-# Client Lifecycle Management
-The number of clients registered with an authorization server may grow significantly over time. An authorization MAY unregistered a client if it has not been used for an extended period of time to reduce the size of the client registration database.
+# Post-Registration Client Lifecycle Management
+After registration there MUST be an initial client record with a direct link between the SPIFFE identifier in the SPIFFE credentials and the OAuth client identifier, but additional work MAY be required to make the client operational. The client might be missing configuration or entitlement. This is particularly relevant for complex enterprise environments.
+
+## Configuration
+After registration a client must be configured with the necessary operational metadata to function correctly and securely. An authorization server may use a number of mechanissms for obtaining metadata. Metadata may be statically preconfigured, automatically or manually created, or retrieved from a configuration management system. This can happen instantaneously after registration or it can be asyncronous. The OAuth 2.0 Dynamic Client Registration Protocol {{RFC7591}} defines client metadata that may be used, however there can also be custom metadata.
+
+## Entitlement
+This defines the specific permissions and/or access rights granted to the client. This is a critical stage that determines what the configured client is permitted to do and request. Entitlements can include; grant types, scopes, audience restrictions, or fine-grained permissions. 
+
+In enterprise environments the permissions and access rights granted to a client can be highly dynamic and complex. As such there might be several out of band operations; assigning permissions and roles to the client in a PRP system, assigning attributes to the workload, or any other mechanism used for making access rights evaluations.
+
+## Updates
+It is possible that updates to client configuration or entitlement happens with the same mechanism as "register on first use", and can even be entirely opague to the workload. However special care must be taken to ensure this happens securely and in line with company policies. If entitlements like client permissions can be updated dynamically you need to be aware that this can lead to potential priviledge escalation if a workload is hijacked. Similarly adding new redirects to an existing client can also lead to potential issues. The implementer needs to make clear decisions if a) updates to clients are allowed and b) what types of updates are allowed. Risk analysis could also be introduced to control client updates.
+
+## Deregistration
+The number of clients registered with an authorization server may grow significantly over time. An authorization server MAY unregistered a client if it has not been used for an extended period of time to reduce the size of the client registration database. An authorization server MAY also implement an automated expiry of clients (TTL), which has the benefit of continous re-registration and automatic cleanup of unused clients.
 
 # Security Considerations
 
