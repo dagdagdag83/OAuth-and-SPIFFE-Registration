@@ -241,7 +241,7 @@ Authorization servers MAY choose to limit the grant types for which the "registe
 After registration, there MUST be an initial client record with a direct link between the SPIFFE identifier in the SPIFFE credentials and the OAuth client identifier. However, additional steps MAY be required to make the client operational, such as missing configuration or entitlement information. This is particularly relevant for complex enterprise environments.
 
 ## Configuration
-After registration, a client must be configured with the necessary operational metadata to function correctly and securely. An authorization server may use a number of mechanisms for obtaining metadata. Metadata may be statically preconfigured, automatically or manually created, or retrieved from a configuration management system. This can happen instantaneously after registration or it can be asynchronous.
+After registration, a client MUST be configured with the necessary operational metadata to function correctly and securely. An authorization server may use a number of mechanisms for obtaining metadata. Metadata may be statically preconfigured, automatically or manually created, or retrieved from a configuration management system. This can happen instantaneously after registration or it can be asynchronous. If metadata is added asynchronously, the authorization server MUST return an "Incomplete Registration" error whenever the client interacts with the authorization server, until the additional metadata has been added.
 
 ## Entitlement
 Entitlement defines the specific permissions and/or access rights granted to the client. This is a critical stage that determines what the configured client is permitted to do and request. Entitlements can include; grant types, scopes, audience restrictions, or fine-grained permissions.
@@ -249,14 +249,18 @@ Entitlement defines the specific permissions and/or access rights granted to the
 In enterprise environments, the permissions and access rights granted to a client can be highly dynamic and complex. As such, there might be several out-of-band operations; creating a principal for the client, assigning permissions and roles to the client in a PRP system, assigning attributes to the workload, or any other mechanism used for making access rights evaluations.
 
 ## Updates
-Updates to client configuration or entitlement may occur using the same "register on first use" mechanism and can even be entirely opaque to the workload. However, special care must be taken to ensure this happens securely and in line with organizational policies. If entitlements, such as client permissions, can be updated dynamically, be aware that this can lead to potential privilege escalation if a workload is compromised. Similarly, adding new redirects to an existing client can also lead to potential issues. The implementer needs to make clear decisions on whether updates to clients are allowed and, if so, what types of updates are permitted. Risk analysis could also be introduced to determine what types of client updates are allowed.
+Updates to client configuration or entitlement may occur using the same "register on first use" mechanism and can even be entirely opaque to the workload. However, special care must be taken to ensure this happens securely and in line with organizational policies.
 
 ## Deregistration
-The number of clients registered with an authorization server may grow significantly over time. An authorization server MAY deregister a client if it has not been used for an extended period to reduce the size of the client registration database. An authorization server MAY also implement an automated expiry of clients (TTL), which has the benefit of continuous re-registration and automatic cleanup of unused clients.
+An authorization server MAY automatically expire clients. This avoids a large number of unused clients identifiers from accumulating. If a client identifier is deleted, it can re-register using the "register-on-first-use" pattern described in this document.
 
 # Security Considerations
 
 TODO: Security. Consider discussing error responses (include enough info to be helpful, but not too much to aid attackers.)
+
+## Entitlement Updates
+
+If entitlement updates, such as client permissions, can be updated dynamically, be aware that this can lead to potential privilege escalation if a workload is compromised. Similarly, adding new redirects to an existing client can also lead to potential issues. The implementer needs to make clear decisions on whether updates to clients are allowed and, if so, what types of updates are permitted. Risk analysis could also be introduced to determine what types of client updates are allowed.
 
 
 # IANA Considerations
