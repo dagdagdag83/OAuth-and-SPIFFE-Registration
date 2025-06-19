@@ -194,14 +194,16 @@ In OAuth flows that rely on redirection, the initial interaction with the author
 ## Client Registration Error Response
 When the registration attempt has failed or been rejected, the authorization server MUST return an error response that conforms to the expected error response for the given OAuth 2.0 endpoint. Additional error information may or may not be included in the error response.
 
+TODO: Generally improve error section, inline with RFC 6749. Consider also how to return information which can aid the workload or workload owners to resolve failed registration or complete an incomplete registration.
+
 ### Authentication Failed
-When a SPIFFE credential is missing, invalid, or for any reason rejected, the authorization server returns an error response with an HTTP 401 status code. Care must be taken to return enough useful information, but not so much as to potentially aid malicious actors.
+When a SPIFFE credential is missing, invalid, or for any reason rejected, the authorization server returns an error response with an HTTP 401 status code.
 
 ### Failed Registration
-When a request to register a client fails due to disallowed metadata (e.g., http redirect URIs if only https is allowed, or an access token lifetime exceeding maximum allowed) or invalid metadata, the authorization server returns an error response with an HTTP 400 status code. The error response should indicate what was invalid or disallowed, and ideally how it can be resolved.
+When a request to register a client fails due to disallowed metadata (e.g., http redirect URIs if only https is allowed, or an access token lifetime exceeding maximum allowed) or invalid metadata, the authorization server returns an error response with an HTTP 400 status code.
 
 ### Incomplete Registration
-When additional post-registration setup is required, there can be cases where the client cannot be used. In such scenarios, the authorization server returns an error response with an HTTP 403 status code. This error could also be returned in cases where there is an asynchronous event or manual operation that is not yet completed. The response may also include information about what is missing and potentially how the workload, or workload owners, can complete the registration.
+When additional post-registration setup is required, there can be cases where the client cannot be used. In such scenarios, the authorization server returns an error response with an HTTP 403 status code. This error could also be returned in cases where there is an asynchronous event or manual operation that is not yet completed.
 
 # SPIFFE and OAuth Trust Relationship
 SPIFFE makes provision for multiple Trust Domains, which are represented in the workload identifier. Trust Domains offers additional segmentation withing a SPIFFE deployment and each Trust Domain has its own keys for signing credentials. The OAuth authorization server may choose to trust one or more trust domains as defined in {{SPIFFE-OAUTH-CLIENT-AUTH}}.
@@ -236,7 +238,7 @@ An authorization server MAY register a client with a default set of scopes or re
 Authorization servers MAY choose to limit the grant types for which the "register on first use" pattern is supported. This may be recorded as the "grant_type" metadata field.
 
 # Post-Registration Client Lifecycle Management
-After registration, there MUST be an initial client record with a direct link between the SPIFFE identifier in the SPIFFE credentials and the OAuth client identifier. However, additional work MAY be required to make the client operational, such as missing configuration or entitlement. This is particularly relevant for complex enterprise environments.
+After registration, there MUST be an initial client record with a direct link between the SPIFFE identifier in the SPIFFE credentials and the OAuth client identifier. However, additional steps MAY be required to make the client operational, such as missing configuration or entitlement information. This is particularly relevant for complex enterprise environments.
 
 ## Configuration
 After registration, a client must be configured with the necessary operational metadata to function correctly and securely. An authorization server may use a number of mechanisms for obtaining metadata. Metadata may be statically preconfigured, automatically or manually created, or retrieved from a configuration management system. This can happen instantaneously after registration or it can be asynchronous.
@@ -254,7 +256,7 @@ The number of clients registered with an authorization server may grow significa
 
 # Security Considerations
 
-TODO Security
+TODO: Security. Consider discussing error responses (include enough info to be helpful, but not too much to aid attackers.)
 
 
 # IANA Considerations
